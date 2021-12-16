@@ -314,7 +314,6 @@ export class UnleashClient extends TinyEmitter {
                     await this.storeToggles(data.toggles);
                 }
             } catch (e) {
-                // tslint:disable-next-line
                 console.error('Unleash: unable to fetch feature toggles', e);
                 this.emit(EVENTS.ERROR, e);
             }
