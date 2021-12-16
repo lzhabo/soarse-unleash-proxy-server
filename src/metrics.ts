@@ -90,6 +90,7 @@ export default class Metrics {
         }
 
         await this.fetch(url, {
+            mode: 'no-cors',
             cache: 'no-cache',
             method: 'POST',
             headers: {
