@@ -1,8 +1,8 @@
 import { TinyEmitter } from 'tiny-emitter';
 import Metrics from './metrics';
 import type IStorageProvider from './storage-provider';
-import LocalStorageProvider from './storage-provider-local';
 import InMemoryStorageProvider from './storage-provider-inmemory';
+import LocalStorageProvider from './storage-provider-local';
 
 const DEFINED_FIELDS = ['userId', 'sessionId', 'remoteAddress'];
 
@@ -54,7 +54,7 @@ export const EVENTS = {
     INIT: 'initialized',
     ERROR: 'error',
     READY: 'ready',
-    UPDATE: 'update'
+    UPDATE: 'update',
 };
 
 const defaultVariant: IVariant = { name: 'disabled' };
@@ -90,20 +90,20 @@ export class UnleashClient extends TinyEmitter {
     private bootstrapOverride: boolean;
 
     constructor({
-                    storageProvider,
-                    url,
-                    clientKey,
-                    disableRefresh = false,
-                    refreshInterval = 30,
-                    metricsInterval = 30,
-                    disableMetrics = false,
-                    appName,
-                    environment = 'default',
-                    context,
-                    fetch = resolveFetch(),
-                    bootstrap,
-                    bootstrapOverride = true
-                }: IConfig) {
+        storageProvider,
+        url,
+        clientKey,
+        disableRefresh = false,
+        refreshInterval = 30,
+        metricsInterval = 30,
+        disableMetrics = false,
+        appName,
+        environment = 'default',
+        context,
+        fetch = resolveFetch(),
+        bootstrap,
+        bootstrapOverride = true,
+    }: IConfig) {
         super();
         // Validations
         if (!url) {
@@ -150,7 +150,7 @@ export class UnleashClient extends TinyEmitter {
             disableMetrics,
             url,
             clientKey,
-            fetch
+            fetch,
         });
     }
 
@@ -182,12 +182,12 @@ export class UnleashClient extends TinyEmitter {
         // @ts-ignore
         if (context.appName || context.environment) {
             console.warn(
-                'appName and environment are static. They can\'t be updated with updateContext.'
+                "appName and environment are static. They can't be updated with updateContext."
             );
         }
         const staticContext = {
             environment: this.context.environment,
-            appName: this.context.appName
+            appName: this.context.appName,
         };
         this.context = { ...staticContext, ...context };
         if (this.timerRef) {
@@ -306,7 +306,7 @@ export class UnleashClient extends TinyEmitter {
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
                         'If-None-Match': this.etag,
-                    }
+                    },
                 });
                 if (response.ok && response.status !== 304) {
                     this.etag = response.headers.get('ETag') || '';
