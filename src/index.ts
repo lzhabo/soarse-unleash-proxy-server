@@ -298,10 +298,7 @@ export class UnleashClient extends TinyEmitter {
                         }
                     }
                 );
-                console.log(urlWithQuery.toString());
                 const response = await this.fetch(urlWithQuery.toString(), {
-                    mode: 'no-cors',
-                    cache: 'no-cache',
                     headers: {
                         Authorization: this.clientKey,
                         Accept: 'application/json',
@@ -309,7 +306,6 @@ export class UnleashClient extends TinyEmitter {
                         'If-None-Match': this.etag,
                     },
                 });
-                console.log(response);
                 if (response.ok && response.status !== 304) {
                     this.etag = response.headers.get('ETag') || '';
                     const data = await response.json();
